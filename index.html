@@ -4,82 +4,428 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Baltimore Coffee & Tea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--green:#2d5016;--green-mid:#3d6b1f;--green-light:#4a7c24;--cream:#f5f0e8;--white:#ffffff;--text-dark:#1a1a1a;--text-mid:#444;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Georgia',serif;background:var(--cream);color:var(--text-dark);}
-  /* NAV */
-  nav{background:var(--green);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.35);}
-  .nav-logo img{height:48px;object-fit:contain;}
-  .nav-links{display:flex;gap:32px;list-style:none;}
-  .nav-links a{color:var(--white);text-decoration:none;font-family:'Arial',sans-serif;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;transition:opacity .2s;}
-  .nav-links a:hover{opacity:1;border-bottom:2px solid var(--white);}
-  .nav-cta{background:var(--white);color:var(--green);padding:9px 22px;border-radius:4px;font-family:'Arial',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s;}
-  .nav-cta:hover{background:var(--cream);}
-  /* HERO */
-  .hero{position:relative;height:92vh;min-height:560px;overflow:hidden;display:flex;align-items:center;}
-  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.45);}
-  .hero-content{position:relative;z-index:1;max-width:680px;margin-left:8vw;}
-  .hero-eyebrow{color:rgba(255,255,255,.7);font-family:'Arial',sans-serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;}
-  .hero h1{font-size:clamp(2.4rem,5vw,4rem);color:var(--white);line-height:1.12;margin-bottom:20px;font-weight:400;}
-  .hero h1 em{font-style:italic;color:rgba(255,255,255,.85);}
-  .hero-sub{color:rgba(255,255,255,.8);font-family:'Arial',sans-serif;font-size:1.05rem;line-height:1.65;margin-bottom:36px;max-width:500px;}
-  .btn-primary{display:inline-block;background:var(--green-light);color:var(--white);padding:14px 34px;border-radius:4px;text-decoration:none;font-family:'Arial',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:background .2s;margin-right:14px;}
-  .btn-primary:hover{background:var(--green-mid);}
-  .btn-outline{display:inline-block;border:2px solid rgba(255,255,255,.7);color:var(--white);padding:12px 30px;border-radius:4px;text-decoration:none;font-family:'Arial',sans-serif;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase;transition:border-color .2s;}
-  .btn-outline:hover{border-color:var(--white);}
-  /* STRIP */
-  .trust-strip{background:var(--green);padding:18px 40px;display:flex;justify-content:center;gap:60px;}
-  .trust-strip span{color:rgba(255,255,255,.85);font-family:'Arial',sans-serif;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;}
-  /* SECTION */
-  section{padding:80px 40px;}
-  .section-label{font-family:'Arial',sans-serif;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green-light);margin-bottom:12px;}
-  h2{font-size:clamp(1.8rem,3vw,2.6rem);color:var(--green);font-weight:400;margin-bottom:24px;line-height:1.2;}
-  /* FEATURES */
-  .features{background:var(--white);}
-  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;max-width:1100px;margin:0 auto;}
-  .feature-card{text-align:center;padding:32px 20px;}
-  .feature-icon{width:56px;height:56px;background:var(--green);border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;}
-  .feature-icon svg{fill:none;stroke:white;stroke-width:2;width:26px;height:26px;}
-  .feature-card h3{color:var(--green);font-size:1.1rem;margin-bottom:10px;}
-  .feature-card p{color:var(--text-mid);font-family:'Arial',sans-serif;font-size:.9rem;line-height:1.6;}
-  /* GALLERY */
-  .gallery{background:var(--cream);}
-  .gallery-header{max-width:1100px;margin:0 auto 40px;}
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;}
-  .gallery-grid img{width:100%;height:280px;object-fit:cover;border-radius:6px;transition:transform .3s;}
-  .gallery-grid img:hover{transform:scale(1.02);}
-  /* PRODUCTS */
-  .products{background:var(--white);}
-  .products-header{display:flex;align-items:flex-end;justify-content:space-between;max-width:1100px;margin:0 auto 40px;}
-  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:28px;max-width:1100px;margin:0 auto;}
-  .product-card{background:var(--cream);border-radius:8px;overflow:hidden;transition:box-shadow .2s;}
-  .product-card:hover{box-shadow:0 8px 28px rgba(45,80,22,.15);}
-  .product-thumb{height:200px;background:var(--green);display:flex;align-items:center;justify-content:center;}
-  .product-thumb span{color:rgba(255,255,255,.4);font-size:.8rem;font-family:'Arial',sans-serif;letter-spacing:.1em;text-transform:uppercase;}
-  .product-info{padding:20px;}
-  .product-info h3{color:var(--green);font-size:1rem;margin-bottom:6px;}
-  .product-info .origin{color:var(--text-mid);font-family:'Arial',sans-serif;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
-  .product-info .price{color:var(--green-light);font-family:'Arial',sans-serif;font-weight:700;font-size:1rem;}
-  /* CTA BANNER */
-  .cta-banner{background:var(--green);text-align:center;padding:80px 40px;}
-  .cta-banner h2{color:var(--white);margin-bottom:16px;}
-  .cta-banner p{color:rgba(255,255,255,.8);font-family:'Arial',sans-serif;font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto 36px;}
-  .btn-white{display:inline-block;background:var(--white);color:var(--green);padding:14px 36px;border-radius:4px;text-decoration:none;font-family:'Arial',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase;transition:background .2s;}
-  .btn-white:hover{background:var(--cream);}
-  /* FOOTER */
-  footer{background:#1a2e0a;color:rgba(255,255,255,.65);padding:50px 40px 28px;}
-  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;max-width:1100px;margin:0 auto 40px;}
-  .footer-col h4{color:var(--white);font-family:'Arial',sans-serif;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px;}
-  .footer-col a{display:block;color:rgba(255,255,255,.55);text-decoration:none;font-family:'Arial',sans-serif;font-size:.88rem;margin-bottom:8px;transition:color .2s;}
-  .footer-col a:hover{color:var(--white);}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;text-align:center;font-family:'Arial',sans-serif;font-size:.8rem;max-width:1100px;margin:0 auto;}
+:root {
+  --green:      #1e3d0f;
+  --green-mid:  #2d5c1a;
+  --green-light:#3a7020;
+  --cream:      #f4efe4;
+  --cream-dark: #ece5d6;
+  --white:      #ffffff;
+  --text-dark:  #111;
+  --text-mid:   #555;
+  --text-light: #888;
+  --border:     rgba(30,61,15,.12);
+  --radius:     6px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{
+  background:var(--green);
+  padding:0 48px;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-logo img{height:44px;object-fit:contain;display:block;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  color:rgba(255,255,255,.78);
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  transition:color .18s;
+}
+.nav-links a:hover{color:#fff;}
+.nav-cta{
+  background:var(--cream);
+  color:var(--green);
+  padding:8px 20px;
+  border-radius:var(--radius);
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:background .18s;
+}
+.nav-cta:hover{background:#fff;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  height:88vh;
+  min-height:520px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:brightness(.38) saturate(.9);
+}
+.hero-content{
+  position:relative;z-index:1;
+  max-width:640px;
+  margin-left:8vw;
+}
+.eyebrow{
+  color:rgba(255,255,255,.6);
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  font-weight:700;
+  color:#fff;
+  line-height:1.13;
+  margin-bottom:18px;
+  letter-spacing:-.02em;
+}
+.hero h1 span{color:rgba(255,255,255,.65);font-weight:300;}
+.hero-sub{
+  color:rgba(255,255,255,.72);
+  font-size:1rem;
+  line-height:1.7;
+  margin-bottom:32px;
+  max-width:480px;
+  font-weight:400;
+}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green-light);
+  color:#fff;
+  padding:13px 28px;
+  border-radius:var(--radius);
+  text-decoration:none;
+  font-size:.88rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  transition:background .18s;
+}
+.btn-primary:hover{background:var(--green-mid);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid rgba(255,255,255,.45);
+  color:rgba(255,255,255,.88);
+  padding:12px 26px;
+  border-radius:var(--radius);
+  text-decoration:none;
+  font-size:.88rem;
+  font-weight:500;
+  transition:border-color .18s,color .18s;
+}
+.btn-ghost:hover{border-color:#fff;color:#fff;}
+
+/* ── SINCE STRIP ── */
+.since-strip{
+  background:var(--green);
+  padding:14px 48px;
+  display:flex;
+  justify-content:center;
+  gap:56px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.since-strip .item{
+  display:flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,.7);
+  font-size:.76rem;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.since-strip .item svg{flex-shrink:0;}
+
+/* ── GENERIC SECTION ── */
+section{padding:80px 48px;}
+.section-label{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--green-light);
+  margin-bottom:10px;
+}
+h2{
+  font-size:clamp(1.7rem,2.8vw,2.4rem);
+  font-weight:700;
+  color:var(--green);
+  letter-spacing:-.02em;
+  line-height:1.2;
+  margin-bottom:12px;
+}
+.section-sub{
+  color:var(--text-mid);
+  font-size:.95rem;
+  line-height:1.7;
+  max-width:520px;
+  margin-bottom:48px;
+}
+
+/* ── PILLARS ── */
+.pillars{background:var(--white);}
+.pillars-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  max-width:1060px;
+  margin:0 auto;
+}
+.pillar{
+  background:var(--white);
+  padding:36px 28px;
+}
+.pillar-icon{
+  width:44px;height:44px;
+  background:var(--cream);
+  border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.pillar h3{
+  font-size:.98rem;
+  font-weight:600;
+  color:var(--green);
+  margin-bottom:8px;
+}
+.pillar p{
+  font-size:.86rem;
+  color:var(--text-mid);
+  line-height:1.65;
+}
+
+/* ── PRODUCTS ── */
+.products{background:var(--cream);}
+.products-header{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  max-width:1060px;
+  margin:0 auto 36px;
+}
+.products-header a{
+  color:var(--green-light);
+  font-size:.82rem;
+  font-weight:600;
+  text-decoration:none;
+  display:flex;align-items:center;gap:4px;
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:20px;
+  max-width:1060px;
+  margin:0 auto;
+}
+.product-card{
+  background:var(--white);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  transition:box-shadow .2s,transform .2s;
+}
+.product-card:hover{
+  box-shadow:0 8px 32px rgba(30,61,15,.13);
+  transform:translateY(-2px);
+}
+.product-img{
+  width:100%;height:196px;
+  object-fit:cover;
+  display:block;
+}
+.product-info{padding:18px 18px 20px;}
+.product-badge{
+  display:inline-block;
+  background:var(--cream);
+  color:var(--green-light);
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:3px 8px;
+  border-radius:3px;
+  margin-bottom:10px;
+}
+.product-info h3{
+  font-size:.96rem;
+  font-weight:600;
+  color:var(--text-dark);
+  margin-bottom:4px;
+}
+.product-origin{
+  font-size:.78rem;
+  color:var(--text-light);
+  margin-bottom:14px;
+  font-weight:400;
+}
+.product-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.product-price{
+  font-size:.96rem;
+  font-weight:700;
+  color:var(--green);
+}
+.add-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green);
+  color:#fff;
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  padding:7px 14px;
+  border-radius:4px;
+  text-decoration:none;
+  transition:background .18s;
+}
+.add-btn:hover{background:var(--green-mid);}
+
+/* ── SPLIT ABOUT ── */
+.about-split{
+  background:var(--white);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  min-height:440px;
+  padding:0;
+}
+.about-img{
+  width:100%;height:100%;
+  min-height:380px;
+  object-fit:cover;
+  display:block;
+}
+.about-text{
+  padding:72px 56px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.about-text .section-label{margin-bottom:10px;}
+.about-text h2{margin-bottom:16px;}
+.about-text p{
+  font-size:.94rem;
+  color:var(--text-mid);
+  line-height:1.75;
+  margin-bottom:14px;
+}
+.about-text p:last-of-type{margin-bottom:28px;}
+
+/* ── CTA BANNER ── */
+.cta-banner{
+  background:var(--green);
+  text-align:center;
+  padding:80px 48px;
+}
+.cta-banner h2{color:#fff;margin-bottom:14px;}
+.cta-banner p{
+  color:rgba(255,255,255,.72);
+  font-size:.96rem;
+  line-height:1.7;
+  max-width:480px;
+  margin:0 auto 32px;
+}
+.btn-white{
+  display:inline-block;
+  background:var(--cream);
+  color:var(--green);
+  padding:13px 32px;
+  border-radius:var(--radius);
+  text-decoration:none;
+  font-weight:700;
+  font-size:.88rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  transition:background .18s;
+}
+.btn-white:hover{background:#fff;}
+
+/* ── FOOTER ── */
+footer{
+  background:#142808;
+  color:rgba(255,255,255,.55);
+  padding:56px 48px 28px;
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+  max-width:1060px;
+  margin:0 auto 40px;
+}
+.footer-brand img{height:40px;object-fit:contain;display:block;margin-bottom:16px;}
+.footer-brand p{
+  font-size:.84rem;
+  line-height:1.7;
+  max-width:260px;
+  color:rgba(255,255,255,.45);
+}
+.footer-col h4{
+  color:rgba(255,255,255,.9);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.footer-col a{
+  display:block;
+  color:rgba(255,255,255,.45);
+  text-decoration:none;
+  font-size:.84rem;
+  margin-bottom:9px;
+  transition:color .18s;
+}
+.footer-col a:hover{color:rgba(255,255,255,.9);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:22px;
+  text-align:center;
+  font-size:.76rem;
+  max-width:1060px;
+  margin:0 auto;
+  color:rgba(255,255,255,.3);
+}
+
+@media(max-width:860px){
+  .about-split{grid-template-columns:1fr;}
+  .about-img{min-height:260px;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  section{padding:56px 20px;}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo"><img src="images/logo.jpg" alt="Baltimore Coffee & Tea"></div>
+  <div class="nav-logo">
+    <img src="images/logo.jpg" alt="Baltimore Coffee & Tea">
+  </div>
   <ul class="nav-links">
     <li><a href="#">Coffee</a></li>
     <li><a href="#">Tea</a></li>
@@ -90,91 +436,227 @@
   <a href="#" class="nav-cta">Shop Now</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <img class="hero-bg" src="images/bean-dark.jpg" alt="">
+  <img class="hero-bg"
+    src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1600&q=80"
+    alt="">
   <div class="hero-content">
-    <p class="hero-eyebrow">Roasted in Baltimore since 1981</p>
-    <h1>Coffee Worth<br><em>Waking Up For</em></h1>
-    <p class="hero-sub">Small-batch roasting, carefully sourced beans, and over four decades of craft. Explore our full lineup of coffees and teas delivered to your door.</p>
-    <a href="#" class="btn-primary">Shop Coffee</a>
-    <a href="#" class="btn-outline">Our Story</a>
+    <p class="eyebrow">Roasting the world&rsquo;s best coffees since 1895</p>
+    <h1>Coffee Roasted<br><span>to Order.</span></h1>
+    <p class="hero-sub">Your name. Your roast date. Printed on every bag. Small-batch craft from Baltimore, Maryland, shipped fresh within hours.</p>
+    <div class="btn-row">
+      <a href="#" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Shop Coffee
+      </a>
+      <a href="#" class="btn-ghost">
+        Our Story
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<div class="trust-strip">
-  <span>&#9733; Since 1981</span>
-  <span>&#10003; Small-Batch Roasted</span>
-  <span>&#10003; Free Shipping Over $49</span>
-  <span>&#10003; Wholesale Available</span>
+<!-- TRUST STRIP -->
+<div class="since-strip">
+  <div class="item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    Heritage since 1895
+  </div>
+  <div class="item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+    Roasted to order
+  </div>
+  <div class="item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    Free shipping over $75
+  </div>
+  <div class="item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Baltimore, Maryland
+  </div>
 </div>
 
-<section class="features">
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/></svg></div>
-      <h3>Ethically Sourced</h3>
-      <p>Direct relationships with growers across Latin America, Africa, and Asia-Pacific.</p>
+<!-- PILLARS -->
+<section class="pillars">
+  <div style="max-width:1060px;margin:0 auto 40px;">
+    <p class="section-label">Why Baltimore Coffee</p>
+    <h2>Craft at Every Step</h2>
+    <p class="section-sub">From sourcing to shipping, each detail is handled in-house at our Baltimore roastery.</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3d0f" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>Direct Trade Sourcing</h3>
+      <p>Relationships with growers in Ethiopia, Colombia, Guatemala, and across the Pacific Rim.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-      <h3>Fresh-Roasted Weekly</h3>
-      <p>Every bag ships within 48 hours of roasting for peak flavor and aroma.</p>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3d0f" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Same-Day Roasting</h3>
+      <p>Orders placed by 10 AM ship the same day, Monday through Friday. It doesn&rsquo;t get fresher.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
-      <h3>Baltimore's Own</h3>
-      <p>Proudly roasting and blending in Maryland for over 40 years.</p>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3d0f" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h3>Your Name on the Bag</h3>
+      <p>Every valve bag is heat-sealed and labeled with the roast date and your name. A genuine personal touch.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <h3>Satisfaction Guaranteed</h3>
-      <p>Not happy? We'll make it right — no questions asked.</p>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3d0f" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Eco-Friendly Packaging</h3>
+      <p>All packaging is recyclable. Our packing peanuts are made from corn and fully biodegradable.</p>
     </div>
   </div>
 </section>
 
-<section class="gallery">
-  <div class="gallery-header">
-    <p class="section-label">From bean to cup</p>
-    <h2>The Craft Behind Every Roast</h2>
-  </div>
-  <div class="gallery-grid">
-    <img src="images/bean-close.jpg" alt="Close-up of roasted coffee beans">
-    <img src="images/bean-pile.jpg" alt="Pile of green coffee beans">
-    <img src="images/bean-top.jpg" alt="Top view of coffee beans">
-  </div>
-</section>
-
+<!-- PRODUCTS -->
 <section class="products">
   <div class="products-header">
     <div>
-      <p class="section-label">Our bestsellers</p>
-      <h2>Featured Coffees</h2>
+      <p class="section-label">Bestsellers</p>
+      <h2>Featured Products</h2>
     </div>
-    <a href="#" style="color:var(--green-light);font-family:'Arial',sans-serif;font-size:.9rem;">View all &rarr;</a>
+    <a href="#">View all &rarr;</a>
   </div>
   <div class="products-grid">
-    <div class="product-card"><div class="product-thumb"><span>Product Photo</span></div><div class="product-info"><h3>House Blend</h3><p class="origin">Blend &mdash; Medium Roast</p><p class="price">$14.99 / 12oz</p></div></div>
-    <div class="product-card"><div class="product-thumb"><span>Product Photo</span></div><div class="product-info"><h3>Ethiopian Yirgacheffe</h3><p class="origin">Ethiopia &mdash; Light Roast</p><p class="price">$17.99 / 12oz</p></div></div>
-    <div class="product-card"><div class="product-thumb"><span>Product Photo</span></div><div class="product-info"><h3>Chesapeake Dark</h3><p class="origin">Blend &mdash; Dark Roast</p><p class="price">$14.99 / 12oz</p></div></div>
-    <div class="product-card"><div class="product-thumb"><span>Product Photo</span></div><div class="product-info"><h3>Colombian Supremo</h3><p class="origin">Colombia &mdash; Medium Roast</p><p class="price">$15.99 / 12oz</p></div></div>
+
+    <div class="product-card">
+      <img class="product-img"
+        src="https://images.unsplash.com/photo-1611564494260-6f21b80af7ea?w=600&q=80"
+        alt="House Blend">
+      <div class="product-info">
+        <span class="product-badge">Medium Roast</span>
+        <h3>Baltimore House Blend</h3>
+        <p class="product-origin">Signature Blend &mdash; Balanced &amp; Smooth</p>
+        <div class="product-footer">
+          <span class="product-price">$13.95 / 12 oz</span>
+          <a href="#" class="add-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img class="product-img"
+        src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80"
+        alt="Ethiopian Yirgacheffe">
+      <div class="product-info">
+        <span class="product-badge">Light Roast</span>
+        <h3>Ethiopian Yirgacheffe</h3>
+        <p class="product-origin">Ethiopia &mdash; Bright, Floral, Citrus</p>
+        <div class="product-footer">
+          <span class="product-price">$16.95 / 12 oz</span>
+          <a href="#" class="add-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img class="product-img"
+        src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80"
+        alt="Colombian Supremo">
+      <div class="product-info">
+        <span class="product-badge">Medium Roast</span>
+        <h3>Colombian Supremo</h3>
+        <p class="product-origin">Colombia &mdash; Nutty, Caramel, Clean</p>
+        <div class="product-footer">
+          <span class="product-price">$14.95 / 12 oz</span>
+          <a href="#" class="add-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img class="product-img"
+        src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=600&q=80"
+        alt="Earl Grey Tea">
+      <div class="product-info">
+        <span class="product-badge">Tea</span>
+        <h3>Classic Earl Grey</h3>
+        <p class="product-origin">Loose Leaf &mdash; Bergamot, Bold, Smooth</p>
+        <div class="product-footer">
+          <span class="product-price">$10.95 / 4 oz</span>
+          <a href="#" class="add-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- ABOUT SPLIT -->
+<section class="about-split">
+  <img class="about-img"
+    src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80"
+    alt="Baltimore roastery">
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2>A Heritage Since 1895</h2>
+    <p>Baltimore Coffee &amp; Tea has been roasting and blending exceptional coffees and teas for over a century. What began as a small local trade has grown into one of the Mid-Atlantic&rsquo;s most trusted specialty roasters.</p>
+    <p>We source directly from growers we know personally, roast in small batches to peak perfection, and ship fresh to your door &mdash; often the same day your order comes in.</p>
+    <a href="#" class="btn-primary" style="align-self:flex-start;">
+      Learn More
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
 <section class="cta-banner">
-  <h2>Ready to Upgrade Your Morning?</h2>
-  <p>Subscribe and save 15% on every order. Cancel anytime — no contracts, no hassle.</p>
+  <h2>Subscribe &amp; Save 15%</h2>
+  <p>Set your schedule, pick your roast, and never run out. Cancel or adjust anytime &mdash; no contracts.</p>
   <a href="#" class="btn-white">Start Your Subscription</a>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Shop</h4><a href="#">Coffee</a><a href="#">Tea</a><a href="#">Equipment</a><a href="#">Gifts</a></div>
-    <div class="footer-col"><h4>Company</h4><a href="#">Our Story</a><a href="#">Wholesale</a><a href="#">Blog</a><a href="#">Careers</a></div>
-    <div class="footer-col"><h4>Support</h4><a href="#">FAQ</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Contact</a></div>
-    <div class="footer-col"><h4>Contact</h4><a href="#">Baltimore, MD</a><a href="#">info@baltcoffee.com</a><a href="#">(410) 555-0100</a></div>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="images/logo.jpg" alt="Baltimore Coffee & Tea">
+      <p>Roasting the world&rsquo;s finest coffees and teas from Baltimore, Maryland since 1895. Every bag is personal.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Coffee</a>
+      <a href="#">Tea</a>
+      <a href="#">Equipment</a>
+      <a href="#">Gift Cards</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">Our Story</a>
+      <a href="#">Wholesale</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Contact Us</a>
+      <a href="#">(410) 825-8566</a>
+    </div>
   </div>
-  <div class="footer-bottom">&copy; 2026 Baltimore Coffee & Tea Co. All rights reserved.</div>
+  <div class="footer-bottom">&copy; 2026 Baltimore Coffee &amp; Tea Co. All rights reserved.</div>
 </footer>
 
 </body>
